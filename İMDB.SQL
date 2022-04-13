@@ -54,9 +54,10 @@ JOIN Movies ON Films.MovieId = Movies.Id
 JOIN Genres ON Films.GenreId = Genres.Id
 WHERE LEN(Movies.Name)>10 AND Movies.Name LIKE'%t'
 
-SELECT Movies.Point, Genres.Name, Directors.FullName, Actors.FullName FROM Films
+SELECT Movies.Name, Movies.Point, Genres.Name, Directors.FullName, Actors.FullName FROM Films
 JOIN Movies ON Films.MovieId = Movies.Id
 JOIN Genres ON Films.GenreId = Genres.Id
 JOIN Actors ON Films.ActorsId = Actors.Id
 JOIN Directors ON Films.DirectorId = Directors.Id
+WHERE Movies.Point > (SELECT AVG(Movies.Point) FROM Movies)
 ORDER BY Movies.Point DESC
